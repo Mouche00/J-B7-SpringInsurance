@@ -1,6 +1,6 @@
 package com.insurance.utils.enums;
 
-public enum SecurtiyType {
+public enum SecurityType {
     ALARM,
     CAMERAS,
     NONE

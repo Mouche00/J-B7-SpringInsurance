@@ -4,13 +4,14 @@ import com.insurance.repositories.GenericRepoistory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 public class GenericRepositoryImpl<T, ID> implements GenericRepoistory<T, ID> {
     @PersistenceContext
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
 
     protected Class<T> entityClass;
 
@@ -25,11 +26,13 @@ public class GenericRepositoryImpl<T, ID> implements GenericRepoistory<T, ID> {
     }
 
     @Override
+    @Transactional
     public void update(T entity) {
         entityManager.merge(entity);
     }
 
     @Override
+    @Transactional
     public void delete(T entity) {
         entityManager.remove(entity);
     }
@@ -41,6 +44,6 @@ public class GenericRepositoryImpl<T, ID> implements GenericRepoistory<T, ID> {
 
     @Override
     public List<T> getAll() {
-        return entityManager.createQuery("select from " + entityClass.getSimpleName() + " e", entityClass).getResultList();
+        return entityManager.createQuery("select e from " + entityClass.getSimpleName() + " e", entityClass).getResultList();
     }
 }

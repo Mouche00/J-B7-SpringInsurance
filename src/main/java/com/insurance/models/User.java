@@ -5,30 +5,32 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
 public class User {
 
-    @EmbeddedId
-    private EntityId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
-    @NotBlank(message = "{name.required}")
+//    @NotBlank(message = "{name.required}")
     private String name;
 
-    @Email(message = "{email.invalid}")
-    @NotBlank(message = "{email.required}")
-    @Column(unique = true)
+//    @Email(message = "{email.invalid}")
+//    @NotBlank(message = "{email.required}")
+//    @Column(unique = true)
     private String email;
 
-    @NotBlank(message = "{password.required}")
+//    @NotBlank(message = "{password.required}")
     private String password;
 
-    @NotNull(message = "{age.required}")
+//    @NotNull(message = "{age.required}")
     @Min(value = 18, message = "{age.min}")
     private Integer age;
 
-    @Pattern(regexp = "^(07|06|05)\\d{8}$\n", message = "{phone.invalid}")
+//    @Pattern(regexp = "^(07|06|05)\\d{8}$\n", message = "{phone.invalid}")
     private String phone;
 
     private String address;
@@ -36,11 +38,11 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Insurance> insurances;
 
-    public EntityId getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(EntityId id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -68,11 +70,11 @@ public class User {
         this.password = password;
     }
 
-    public int getAge() {
+    public @Min(value = 18, message = "{age.min}") Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(@Min(value = 18, message = "{age.min}") Integer age) {
         this.age = age;
     }
 

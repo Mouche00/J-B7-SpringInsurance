@@ -1,4 +1,7 @@
 package com.insurance.services;
 
-public interface QuoteService {
+import com.insurance.models.Quote;
+
+public interface QuoteService extends GenericService<Quote, String> {
+    <T> double calculateQuote(T insurance);
 }

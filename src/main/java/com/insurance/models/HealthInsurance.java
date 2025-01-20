@@ -8,4 +8,10 @@ import jakarta.persistence.Table;
 @Table(name = "health_insurances")
 @DiscriminatorValue("health")
 public class HealthInsurance extends Insurance {
+    public HealthInsurance(String assetType, boolean riskFactor, User user) {
+        super(assetType, riskFactor, user);
+    }
+
+    public HealthInsurance() {
+    }
 }

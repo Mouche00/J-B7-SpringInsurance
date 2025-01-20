@@ -1,8 +1,7 @@
 package com.insurance.models;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.insurance.utils.enums.UsageType;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "vehicle_insurances")
@@ -10,6 +9,9 @@ import jakarta.persistence.Table;
 public class VehicleInsurance extends Insurance {
     private String vehicleMake;
     private String vehicleModel;
+
+    @Enumerated(EnumType.STRING)
+    private UsageType usageType;
 
     public String getVehicleMake() {
         return vehicleMake;
@@ -27,10 +29,19 @@ public class VehicleInsurance extends Insurance {
         this.vehicleModel = vehicleModel;
     }
 
-    public VehicleInsurance(String assetType, boolean riskFactor, User user, String vehicleMake, String vehicleModel) {
+    public UsageType getUsageType() {
+        return usageType;
+    }
+
+    public void setUsageType(UsageType usageType) {
+        this.usageType = usageType;
+    }
+
+    public VehicleInsurance(String assetType, boolean riskFactor, User user, String vehicleMake, String vehicleModel, UsageType usageType) {
         super(assetType, riskFactor, user);
         this.vehicleMake = vehicleMake;
         this.vehicleModel = vehicleModel;
+        this.usageType = usageType;
     }
 
     public VehicleInsurance() {

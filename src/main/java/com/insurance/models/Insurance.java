@@ -8,21 +8,23 @@ import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "insurances")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "type")
 
-public abstract class Insurance {
+public class Insurance {
 
-    @EmbeddedId
-    private EntityId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
-    @NotBlank
+//    @NotBlank
     private String assetType;
 
-    @NotNull
+//    @NotNull
     private boolean riskFactor;
 
     @PastOrPresent
@@ -32,14 +34,15 @@ public abstract class Insurance {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "insurance", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Quote> quotes;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "quote_id")
+    private Quote quote;
 
-    public EntityId getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(EntityId id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -67,12 +70,20 @@ public abstract class Insurance {
         this.validatedAt = validatedAt;
     }
 
-    public Set<Quote> getQuotes() {
-        return quotes;
+    public User getUser() {
+        return user;
     }
 
-    public void setQuotes(Set<Quote> quotes) {
-        this.quotes = quotes;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Quote getQuote() {
+        return quote;
+    }
+
+    public void setQuote(Quote quote) {
+        this.quote = quote;
     }
 
     public Insurance(String assetType, boolean riskFactor, User user) {

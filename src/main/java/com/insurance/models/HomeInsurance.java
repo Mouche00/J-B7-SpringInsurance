@@ -1,6 +1,6 @@
 package com.insurance.models;
 
-import com.insurance.utils.enums.SecurtiyType;
+import com.insurance.utils.enums.SecurityType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -15,7 +15,7 @@ public class HomeInsurance extends Insurance {
     private double assetValue;
 
     @Enumerated(EnumType.STRING)
-    private SecurtiyType securtiyType;
+    private SecurityType securityType;
 
     public double getAssetValue() {
         return assetValue;
@@ -25,18 +25,18 @@ public class HomeInsurance extends Insurance {
         this.assetValue = assetValue;
     }
 
-    public SecurtiyType getSecurtiyType() {
-        return securtiyType;
+    public SecurityType getSecurityType() {
+        return securityType;
     }
 
-    public void setSecurtiyType(SecurtiyType securtiyType) {
-        this.securtiyType = securtiyType;
+    public void setSecurityType(SecurityType securityType) {
+        this.securityType = securityType;
     }
 
-    public HomeInsurance(String assetType, boolean riskFactor, User user, double assetValue, SecurtiyType securtiyType) {
+    public HomeInsurance(String assetType, boolean riskFactor, User user, double assetValue, SecurityType securityType) {
         super(assetType, riskFactor, user);
         this.assetValue = assetValue;
-        this.securtiyType = securtiyType;
+        this.securityType = securityType;
     }
 
     public HomeInsurance() {

@@ -8,13 +8,15 @@ import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "quotes")
 public class Quote {
 
-    @EmbeddedId
-    private EntityId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @NotNull
     @Positive
@@ -24,15 +26,14 @@ public class Quote {
     @PastOrPresent
     private LocalDate createdAt;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "insurance_id")
+    @OneToOne(mappedBy = "quote", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Insurance insurance;
 
-    public EntityId getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(EntityId id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

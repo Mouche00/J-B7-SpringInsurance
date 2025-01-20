@@ -1,4 +1,9 @@
 package com.insurance.services;
 
-public interface UserService {
+import com.insurance.models.User;
+
+import java.util.Optional;
+
+public interface UserService extends GenericService<User, String> {
+    Optional<User> findByEmail(String email);
 }
